@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Managers;
 using UI;
+using UI.Scripts;
 using UnityEngine;
 
 namespace Player {

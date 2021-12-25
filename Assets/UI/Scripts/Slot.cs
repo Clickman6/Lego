@@ -3,7 +3,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI {
+namespace UI.Scripts {
     public class Slot : MonoBehaviour, IDropHandler {
         private GameObject _itemUI;
         

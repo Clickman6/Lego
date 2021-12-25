@@ -1,11 +1,13 @@
 using System.Collections;
 using UI;
+using UI.Scripts;
 using UnityEngine;
 
 namespace Managers {
     public class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
 
+        public static bool IsPlay = true;
         public static bool IsPause;
 
         private void Awake() {
@@ -14,6 +16,8 @@ namespace Managers {
         }
 
         private void Update() {
+            if(!IsPlay) return;
+            
             if (IsPause) {
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                     CloseInventory();
@@ -61,6 +65,16 @@ namespace Managers {
             ShowCursor();
             IsPause = true;
             Time.timeScale = 0;
+        }
+        
+        public void Play() {
+            IsPlay = true;
+            UnPause();
+        }
+        
+        public void Stop() {
+            IsPlay = false;
+            Pause();
         }
 
         public void UnPause() {

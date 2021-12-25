@@ -1,9 +1,8 @@
 using System;
 using TMPro;
-using UI.Scripts;
 using UnityEngine;
 
-namespace UI {
+namespace UI.Scripts {
     public class UIManager : MonoBehaviour {
         public static UIManager Instance { get; private set; }
 

@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using IJunior.TypedScenes;
 using UnityEngine;
 
-public class MainMenuManager : MonoBehaviour {
-    public void StartNewGame() {
-        SceneTransition.SwitchToScene("Playground");
+namespace UI.Scripts {
+    public class MainMenuManager : MonoBehaviour {
+        public void StartNewGame() {
+            SceneTransition.SwitchToScene(() => Playground.LoadAsync(333));
+        }
     }
 }

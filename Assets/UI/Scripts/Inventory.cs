@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI {
+namespace UI.Scripts {
     public class Inventory : MonoBehaviour {
         [SerializeField] private GameObject _cellPrefab;
 
