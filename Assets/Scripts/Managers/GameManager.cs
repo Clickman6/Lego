@@ -12,7 +12,6 @@ namespace Managers {
 
         private void Awake() {
             Instance = this;
-            HideCursor();
         }
 
         private void Update() {
@@ -53,31 +52,31 @@ namespace Managers {
         }
 
         //Other
-        public void ShowCursor() {
+        public static void ShowCursor() {
             Cursor.lockState = CursorLockMode.Confined;
         }
 
-        public void HideCursor() {
+        public static void HideCursor() {
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        public void Pause() {
+        public static void Pause() {
             ShowCursor();
             IsPause = true;
             Time.timeScale = 0;
         }
         
-        public void Play() {
+        public static void Play() {
             IsPlay = true;
             UnPause();
         }
         
-        public void Stop() {
+        public static void Stop() {
             IsPlay = false;
             Pause();
         }
 
-        public void UnPause() {
+        public static void UnPause() {
             HideCursor();
             IsPause = false;
             Time.timeScale = 1;

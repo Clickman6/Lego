@@ -1,3 +1,4 @@
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class SceneTransition : MonoBehaviour {
     public delegate AsyncOperation SceneLoader();
 
     public static void SwitchToScene(SceneLoader scene) {
+        instance.gameObject.SetActive(true);
+
         instance.componentAnimator.SetTrigger("sceneClosing");
 
         instance.loadingSceneOperation = scene();
@@ -29,9 +32,11 @@ public class SceneTransition : MonoBehaviour {
 
         componentAnimator = GetComponent<Animator>();
 
-        if (!shouldPlayOpeningAnimation) return;
-        gameObject.SetActive(false);
-
+        if (!shouldPlayOpeningAnimation) {
+            gameObject.SetActive(false);
+            return;
+        }
+        
         componentAnimator.SetTrigger("sceneOpening");
         instance.LoadingProgressBar.fillAmount = 1;
 
@@ -47,7 +52,13 @@ public class SceneTransition : MonoBehaviour {
                                                    Time.deltaTime * 5);
     }
 
-    public void OnAnimationOver() {
+    public void OnSceneOpen() {
+        if (!GameManager.Instance) return;
+        
+        GameManager.Stop();
+    }
+
+    public void OnSceneClose() {
         shouldPlayOpeningAnimation = true;
 
         loadingSceneOperation.allowSceneActivation = true;
