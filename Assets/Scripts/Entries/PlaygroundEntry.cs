@@ -1,13 +1,13 @@
 using System;
 using IJunior.TypedScenes;
 using TMPro;
-using UI.Scripts;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Managers {
     public class PlaygroundEntry : MonoBehaviour, ISceneLoadHandler<bool> {
-        private bool _load = false;
+        private bool _load;
 
         [SerializeField] private GameObject _continue;
         [SerializeField] private GameObject _button;
@@ -44,8 +44,8 @@ namespace Managers {
         }
 
         private void Load() {
-            int amount = 10;
-            int progress = 0;
+            int amount = 100000;
+            int progress;
 
             for (int i = 0; i < amount; i++) {
                 progress = Mathf.RoundToInt(i * 100 / amount);
@@ -55,6 +55,8 @@ namespace Managers {
                 _loadingProgressBar.fillAmount =
                     Mathf.Lerp(_loadingProgressBar.fillAmount, progress, Time.deltaTime * 5);
             }
+
+            ShowButton();
         }
     }
 }

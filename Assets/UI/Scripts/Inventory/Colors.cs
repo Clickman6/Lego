@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Managers;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UI.Scripts {
+namespace UI {
     public class Colors : MonoBehaviour {
         [SerializeField] private List<Material> _materials = new List<Material>();
         [SerializeField] private GameObject _template;

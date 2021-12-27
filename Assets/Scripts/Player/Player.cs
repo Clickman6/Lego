@@ -15,16 +15,18 @@ namespace Player {
         private bool _isGrounded;
         private float _timer;
         private CharacterController _characterController;
+        
+        private float Sensitivity => _sensitivity * Settings.Instance.Sensitivity;
 
         [Header("Settings")]
         [SerializeField] private float _speed;
-        [SerializeField] private float _sensitivity;
         [SerializeField] private float _jumpHeight;
+        [SerializeField] private float _sensitivity;
 
         [Header("Ground")]
         [SerializeField] private Transform _grounded;
         [SerializeField] private LayerMask _layerMask;
-
+        
         private void Awake() {
             Instance = this;
             Inventory = GetComponent<Inventory>();
@@ -44,7 +46,7 @@ namespace Player {
 
         private void Update() {
             if (GameManager.IsPause) return;
-
+            
             Move();
             RotationPlayer();
             RotationCamera();
@@ -53,7 +55,7 @@ namespace Player {
         private void RotationCamera() {
             float v = Input.GetAxis("Mouse Y");
 
-            _angleX -= v * _sensitivity;
+            _angleX -= v * Sensitivity;
 
             _angleX = Mathf.Clamp(_angleX, -80, 80);
 
@@ -63,7 +65,7 @@ namespace Player {
         private void RotationPlayer() {
             float h = Input.GetAxis("Mouse X");
 
-            transform.Rotate(Vector3.up * h * _sensitivity);
+            transform.Rotate(Vector3.up * h * Sensitivity);
         }
 
         private void Move() {

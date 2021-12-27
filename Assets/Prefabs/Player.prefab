@@ -184,8 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraTransform: {fileID: 963194228}
   _speed: 5
-  _sensitivity: 7
   _jumpHeight: 1
+  _sensitivity: 10
   _grounded: {fileID: 1138535790}
   _layerMask:
     serializedVersion: 2

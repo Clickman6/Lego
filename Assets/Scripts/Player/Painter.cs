@@ -34,7 +34,7 @@ namespace Player {
 
         private void FixedUpdate() {
             if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out var hit,
-                                PrivateSettings.RaycastDistance, _layerMask)) {
+                                Settings.RaycastDistance, _layerMask)) {
                 Select(hit.transform.GetComponent<Item>());
             } else if (_selectedItem) {
                 UnSelect();

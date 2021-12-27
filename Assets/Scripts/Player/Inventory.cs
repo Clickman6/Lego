@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Managers;
 using UI;
-using UI.Scripts;
 using UnityEngine;
 
 namespace Player {
@@ -60,8 +58,8 @@ namespace Player {
             DisableTools();
 
             Trash.Enable();
-            
-            UIManager.Instance.SetInventoryText($"Инструмент удаления");
+
+            UI.Inventory.Instance.SetText("Инструмент удаления");
         }
 
         public void SetPainter() {
@@ -69,8 +67,8 @@ namespace Player {
             DisableTools();
 
             Painter.Enable();
-            
-            UIManager.Instance.SetInventoryText($"Инструмент кисть");
+
+            UI.Inventory.Instance.SetText("Инструмент кисть");
         }
 
         // Slots
@@ -78,7 +76,7 @@ namespace Player {
             DisableAllSlot();
 
             _items[GetCurrentIndex()].Check();
-            UIManager.Instance.SetInventoryText($"Инструмент строитель ({_items[GetCurrentIndex()].GetText()})");
+            UI.Inventory.Instance.SetText($"Инструмент строитель ({_items[GetCurrentIndex()].GetText()})");
         }
 
         private void DisableAllSlot() {

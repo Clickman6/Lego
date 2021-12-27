@@ -3,7 +3,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI.Scripts {
+namespace UI {
     public class Slot : MonoBehaviour, IDropHandler {
         private GameObject _itemUI;
         
@@ -23,11 +23,11 @@ namespace UI.Scripts {
         public GameObject GetPrefab() {
             if (_itemUI == null) return null;
 
-            return _itemUI.GetComponent<ItemSprite>().Prefab;
+            return _itemUI.GetComponent<Item>().Prefab;
         }
 
         public String GetText() {
-            return !_itemUI ? "Не выбран" : _itemUI.GetComponent<ItemSprite>().Text;
+            return !_itemUI ? "Не выбран" : _itemUI.GetComponent<Item>().Text;
 
         }
         

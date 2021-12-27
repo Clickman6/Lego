@@ -1,41 +1,58 @@
-using System.Collections;
 using UI;
-using UI.Scripts;
 using UnityEngine;
 
 namespace Managers {
     public class GameManager : MonoBehaviour {
         public static GameManager Instance { get; private set; }
 
-        public static bool IsPlay = true;
         public static bool IsPause;
-
+        private static bool IsPlay = true;
+        
         private void Awake() {
             Instance = this;
         }
 
         private void Update() {
             if(!IsPlay) return;
-            
+
             if (IsPause) {
                 if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E)) {
                     CloseInventory();
+                    ClosePauseMenu();
                 }
             } else {
+                if (Input.GetKeyDown(KeyCode.Escape)) {
+                    OpenPauseMenu();
+                }
+                
                 if (Input.GetKeyDown(KeyCode.E)) {
                     OpenInventory();
                 }
             }
         }
-
-        //Inventory
-        public void OpenInventory() {
-            UIManager.Instance.ShowInventory();
+        
+        // Pause Menu
+        private static void OpenPauseMenu() {
+            UI.Pause.Instance.Show();
+            Pause();
+        }
+        
+        public static void ClosePauseMenu() {
+            UI.Pause.Instance.Hide();
+            
+            UnPause();
+        }
+        
+        // Inventory
+        private static void OpenInventory() {
+            Inventory.Instance.Show();
+            
             Pause();
         }
 
-        public void CloseInventory() {
-            UIManager.Instance.HideInventory();
+        private static void CloseInventory() {
+            Inventory.Instance.Hide();
+
             UnPause();
         }
 

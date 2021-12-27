@@ -18,6 +18,7 @@ namespace Managers {
 
         [Header("Background music")]
         private float _timer;
+        [SerializeField] private bool _playBackground;
         [SerializeField] private float _nextSoundDelay;
         [SerializeField] private CustomAudio[] _musics;
 
@@ -27,7 +28,9 @@ namespace Managers {
         }
 
         private void Start() {
-            StartCoroutine(PlayBackgroudMusic());
+            if (_playBackground) {
+                StartCoroutine(PlayBackgroundMusic());
+            }
         }
 
         public void PlayBuild()   => PlaySound(_build);
@@ -39,15 +42,15 @@ namespace Managers {
         private void PlaySound(CustomAudio audio) {
             if (audio == null) return;
 
-            _audioSource.PlayOneShot(audio.Clip, audio.Volume);
+            _audioSource.PlayOneShot(audio.Clip, audio.GetVolume());
         }
 
         //Background music
-        IEnumerator PlayBackgroudMusic() {
+        private IEnumerator PlayBackgroundMusic() {
             if (_musics.Length <= 0) yield return null;
 
             int lastIndex = -1;
-            
+
             while (_musics.Length > 0) {
                 int index = Random.Range(0, _musics.Length);
 
@@ -55,7 +58,7 @@ namespace Managers {
 
                 CustomAudio audio = _musics[index];
                 float waitTime = audio.Clip.length + _nextSoundDelay;
-                
+
                 PlaySound(audio);
 
                 yield return new WaitForSeconds(waitTime);

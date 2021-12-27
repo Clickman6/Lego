@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace UI.Scripts {
-    public class ItemSprite : MonoBehaviour {
+namespace UI {
+    public class Item : MonoBehaviour {
         public GameObject Prefab;
 
         public string Text;

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UI.Scripts {
+namespace UI {
     public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
         public static GameObject DragItem;
         private Transform _startParent;

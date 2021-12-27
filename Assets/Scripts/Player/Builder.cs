@@ -22,11 +22,7 @@ namespace Player {
             if (!_item) return;
 
             _timer -= Time.deltaTime;
-
-            if (Input.GetKeyDown(KeyCode.G)) {
-                ChangeGridSize();
-            }
-
+            
             if (Input.GetKey(KeyCode.Mouse0) && _timer <= 0f) {
                 ResetTimer();
                 BuildItem();
@@ -39,13 +35,17 @@ namespace Player {
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.R)) {
                 Rotation();
             }
+
+            if (Input.GetKeyDown(KeyCode.G)) {
+                ChangeGridSize();
+            }
         }
 
         private void FixedUpdate() {
             if (Player.Inventory.GetItem() == null) return;
 
             if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out var hit,
-                                PrivateSettings.RaycastDistance)) {
+                                Settings.RaycastDistance)) {
                 if (!_item) {
                     AddingItem(hit);
                 } else {
