@@ -40,7 +40,7 @@ namespace UI {
             current.anchorMax = Vector2.one * 0.5f;
             current.pivot = Vector2.one * 0.5f;
 
-            current.sizeDelta = Vector2.one * 100;
+            current.sizeDelta = Vector2.one * 90;
         }
 
         public static void SetRelativeRectTransform() {
@@ -49,8 +49,8 @@ namespace UI {
             current.anchorMin = Vector2.zero;
             current.anchorMax = Vector2.one;
             current.pivot = Vector2.one * 0.5f;
-
-            current.sizeDelta = Vector2.zero;
+            
+            current.sizeDelta = Vector2.one * -10f;
             current.anchoredPosition3D = Vector3.zero;
         }
 

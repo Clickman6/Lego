@@ -21,9 +21,8 @@ namespace UI {
         }
 
         public GameObject GetPrefab() {
-            if (_itemUI == null) return null;
+            return _itemUI == null ? null : _itemUI.GetComponent<Item>().Prefab;
 
-            return _itemUI.GetComponent<Item>().Prefab;
         }
 
         public String GetText() {

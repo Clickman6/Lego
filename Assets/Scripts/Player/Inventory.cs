@@ -5,10 +5,8 @@ using UnityEngine;
 
 namespace Player {
     public class Inventory : MonoBehaviour {
-        public static Builder Builder { get; private set; }
-
-        public static Trash Trash { get; private set; }
-
+        public        Builder Builder { get; private set; }
+        public        Trash   Trash   { get; private set; }
         public static Painter Painter { get; private set; }
 
         public Material CurrentMaterial {

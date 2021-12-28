@@ -8,7 +8,7 @@ namespace Player {
         private Transform _cameraTransform;
         private float _timer;
         private Material _lastMaterial;
-        [CanBeNull] private Item _selectedItem;
+        [CanBeNull] private Block _selectedBlock;
 
         [SerializeField] private LayerMask _layerMask;
         [SerializeField] private Material _selectedMaterial;
@@ -20,7 +20,7 @@ namespace Player {
 
         private void Update() {
             if (GameManager.IsPause) return;
-            if (!_selectedItem) return;
+            if (!_selectedBlock) return;
 
             _timer += Time.deltaTime;
 
@@ -37,34 +37,34 @@ namespace Player {
         private void FixedUpdate() {
             if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out var hit,
                                 Settings.RaycastDistance, _layerMask)) {
-                Select(hit.transform.GetComponent<Item>());
-            } else if (_selectedItem) {
+                Select(hit.transform.GetComponent<Block>());
+            } else if (_selectedBlock) {
                 UnSelect();
             }
         }
 
-        private void Select(Item item) {
-            if (_selectedItem?.GetInstanceID() == item.GetInstanceID()) return;
+        private void Select(Block block) {
+            if (_selectedBlock?.GetInstanceID() == block.GetInstanceID()) return;
 
             UnSelect();
 
-            _lastMaterial = item.GetMaterial();
-            _selectedItem = item;
+            _lastMaterial = block.GetMaterial();
+            _selectedBlock = block;
             SetMaterial(_selectedMaterial);
         }
 
         private void UnSelect() {
             SetMaterial(_lastMaterial);
-            _selectedItem = null;
+            _selectedBlock = null;
         }
 
         private void Remove() {
-            _selectedItem.Die();
+            _selectedBlock.Die();
             UnSelect();
         }
 
         private void SetMaterial(Material material) {
-            _selectedItem?.SetMaterial(material);
+            _selectedBlock?.SetMaterial(material);
         }
 
         public void Enable() {

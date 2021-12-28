@@ -1,4 +1,5 @@
 using System;
+using Entries;
 using Managers;
 using UnityEngine;
 
@@ -16,13 +17,17 @@ namespace UI {
         }
         
         public void OnMenuButton() {
+            PlaygroundEntry.Instance.Save();
+            
             GameManager.UnPause();
             GameManager.ShowCursor();
-            
+
             Transition.SwitchToScene(() => IJunior.TypedScenes.Menu.LoadAsync());
         }
         
         public void OnExitButton() {
+            PlaygroundEntry.Instance.Save();
+
             Application.Quit();
         }
 

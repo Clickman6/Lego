@@ -5,10 +5,13 @@ using UnityEngine;
 
 namespace Player {
     public class Builder : MonoBehaviour {
+        public Material AllowMaterial;
+        public Material DenyMaterial;
+        
         private Transform _cameraTransform;
         private Vector3 _rotation = Vector3.zero;
         private float _timer;
-        [CanBeNull] private Item _item;
+        [CanBeNull] private Block _block;
 
         [SerializeField] private float _gridStep;
         [SerializeField] private Transform _parent;
@@ -19,7 +22,7 @@ namespace Player {
 
         private void Update() {
             if (GameManager.IsPause) return;
-            if (!_item) return;
+            if (!_block) return;
 
             _timer -= Time.deltaTime;
             
@@ -46,7 +49,7 @@ namespace Player {
 
             if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out var hit,
                                 Settings.RaycastDistance)) {
-                if (!_item) {
+                if (!_block) {
                     AddingItem(hit);
                 } else {
                     ChangeTransform(hit);
@@ -64,38 +67,38 @@ namespace Player {
                 _rotation = Vector3.zero;
             }
 
-            _item.transform.localEulerAngles = _rotation;
+            _block.transform.localEulerAngles = _rotation;
         }
 
         private void ChangeTransform(RaycastHit hit) {
-            _item.transform.localPosition = GetBuildingPosition(hit);
+            _block.transform.localPosition = GetBuildingPosition(hit);
         }
 
         private void AddingItem(RaycastHit hit) {
-            _item = Instantiate(Player.Inventory.GetItem(), hit.point, Quaternion.Euler(_rotation))
-                .GetComponent<Item>();
-            _item.Adding();
+            _block = Instantiate(Player.Inventory.GetItem(), hit.point, Quaternion.Euler(_rotation))
+                .GetComponent<Block>();
+            _block.Adding();
         }
 
         private void BuildItem() {
-            if (!_item.CanBuild()) {
+            if (!_block.CanBuild()) {
                 AudioManager.Instance.PlayDeny();
                 return;
             }
 
             AudioManager.Instance.PlayBuild();
 
-            _item.Build(_parent);
+            _block.Build(_parent);
 
-            _item = null;
+            _block = null;
         }
 
         public void RemoveItem() {
-            if (!_item) return;
+            if (!_block) return;
 
-            Destroy(_item.gameObject);
+            Destroy(_block.gameObject);
 
-            _item = null;
+            _block = null;
         }
 
         private Vector3 GetBuildingPosition(RaycastHit hit) {
@@ -108,22 +111,22 @@ namespace Player {
             offset.y = Mathf.Round(point.y * 2) / 2;
             offset.z = Mathf.Round(point.z * _gridStep) / _gridStep;
 
-            if (!hit.transform.GetComponent<Item>()) return offset;
+            if (!hit.transform.GetComponent<Block>()) return offset;
 
             bool isRotation = _rotation.y / 90 % 2 == 0;
 
             if (Math.Abs(Mathf.Abs(normal.x) - 1f) < 0.5f) {
-                offset.x = point.x + Mathf.Sign(normal.x) * (isRotation ? _item.Size.x : _item.Size.z) / 2;
+                offset.x = point.x + Mathf.Sign(normal.x) * (isRotation ? _block.Size.x : _block.Size.z) / 2;
             }
 
             if (Math.Abs(Mathf.Abs(normal.y) - 1f) < 0.5f) {
-                offset.y = position.y + _item.Size.y * Mathf.Sign(normal.y);
+                offset.y = position.y + _block.Size.y * Mathf.Sign(normal.y);
             } else {
                 offset.y = position.y;
             }
 
             if (Math.Abs(Mathf.Abs(normal.z) - 1f) < 0.5f) {
-                offset.z = point.z + Mathf.Sign(normal.z) * (isRotation ? _item.Size.z : _item.Size.x) / 2;
+                offset.z = point.z + Mathf.Sign(normal.z) * (isRotation ? _block.Size.z : _block.Size.x) / 2;
             }
 
             return offset;

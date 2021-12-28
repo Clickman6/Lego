@@ -58,5 +58,8 @@ namespace UI {
             _list.SetActive(false);
         }
 
+        public List<Material> GetMaterials() {
+            return _materials;
+        }
     }
 }
