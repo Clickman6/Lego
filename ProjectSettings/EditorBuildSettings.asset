@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MakeSprite.unity
     guid: 665d6a170dc4741229334df4b378f360
+  - enabled: 0
+    path: Assets/Plugins/TypedScenes/Samples/SampleScene.unity
+    guid: 3b4e0b571c0854a989d346735b235f2f
   m_configObjects: {}
